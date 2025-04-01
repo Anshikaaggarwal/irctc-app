@@ -380,19 +380,32 @@ const BookingPage = () => {
       {/* Recent Searches */}
       <div className="recent-searches">
         <h2>{translations[language].recentSearches}</h2>
+        <div className="search-items">
+          <div className="search-grid">
+            {translations[language].recentSearchList.map((search, index) => (
+              <div className="search-card" key={index}>
+                {search.route} <br /> {search.date}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
 
       {/* Other Services */}
       <div className="other-services">
         <h2>{translations[language].otherServices}</h2>
         <div className="service-items">
-          {translations[language].serviceNames.map((service, index) => (
-            <div className="service-card" key={index}>
-              <p>{service}</p>
-            </div>
-          ))}
+          <div className="service-grid">
+            {translations[language].serviceData.map((service, index) => (
+              <div className="service-card" key={index}>
+                <img src={service.image} alt={service.name} />
+                <p>{service.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+    </div>
 
       {/* Footer */}
       <Footer language={language} />
