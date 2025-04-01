@@ -3,32 +3,41 @@ import translations from "./translations";
 import "./styles.css";
 
 const Footer = ({ language }) => {
+  const langData = translations[language] || translations["en"]; // Fallback to English if language is undefined
+
   return (
     <footer className="footer">
       <div className="footer-content">
+        {/* About Us Section */}
         <div className="footer-section">
-          <h3>{translations[language].aboutUsTitle}</h3>
-          <p>{translations[language].aboutUsText}</p>
+          <h3>{langData.aboutUsTitle}</h3>
+          <p>{langData.aboutUsText}</p>
         </div>
+
+        {/* Quick Links Section */}
         <div className="footer-section">
-          <h3>{translations[language].quickLinksTitle}</h3>
+          <h3>{langData.quickLinksTitle}</h3>
           <ul>
-            {translations[language].quickLinks.map((link, index) => (
+            {(langData.quickLinks || []).map((link, index) => (
               <li key={index}>{link}</li>
             ))}
           </ul>
         </div>
+
+        {/* Follow Us Section */}
         <div className="footer-section">
-          <h3>{translations[language].followUsTitle}</h3>
+          <h3>{langData.followUsTitle}</h3>
           <div className="social-icons">
-            {translations[language].socialLinks.map((platform, index) => (
-              <span key={index}>{platform}</span>
-            )).reduce((prev, curr) => [prev, " | ", curr])}
+            {(langData.socialLinks || [])
+              .map((platform, index) => <span key={index}>{platform}</span>)
+              .reduce((prev, curr) => [prev, " | ", curr], [])}
           </div>
         </div>
       </div>
+
+      {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>{translations[language].footerText}</p>
+        <p>{langData.footerText}</p>
       </div>
     </footer>
   );
