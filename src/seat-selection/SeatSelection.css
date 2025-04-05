@@ -1,0 +1,127 @@
+/* Seat Selection Container */
+.seat-selection {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  /* User Selection */
+  .user-selection h2 {
+    margin-bottom: 15px;
+  }
+  
+  .user-selection button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .user-selection button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Coach Selection Buttons */
+  .coach-selection {
+    margin-bottom: 20px;
+  }
+  
+  .coach-selection button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .coach-selection button.selected-coach {
+    background-color: #ffcc00;
+    color: black;
+    font-weight: bold;
+  }
+  
+  /* Coach Container */
+  .coach {
+    margin: 20px auto;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 500px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  /* Seat Container */
+  .seat-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  /* Seat Styling */
+  .seat {
+    width: 80px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
+  
+  .available {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .occupied {
+    background-color: #ff4d4d;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  .female-seat {
+    background-color: #ff69b4;
+    color: white;
+  }
+  
+  .divyang-seat {
+    background-color: #9400d3;
+    color: white;
+  }
+  
+  .selected {
+    background-color: #ffcc00;
+    color: black;
+    border: 2px solid black;
+  }
+  
+  .seat:disabled {
+    opacity: 0.6;
+  }
+  
+  /* Seat Icon Styling */
+  .seat-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
