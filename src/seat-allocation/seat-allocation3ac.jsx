@@ -4,7 +4,6 @@ import { useState } from "react"
 import { CheckCircle, Info, UserIcon as Male, UserIcon as Female } from "lucide-react"
 
 export default function SeatMap() {
-  // Define seat statuses
   const SEAT_STATUS = {
     AVAILABLE: "available",
     SELECTED: "selected",
@@ -12,7 +11,6 @@ export default function SeatMap() {
     OCCUPIED_FEMALE: "occupied-female",
   }
 
-  // Define the seat structure with initial status
   const initialSeatLayout = [
     [1, 2, 3, null, 7],
     [4, 5, 6, null, 8],
@@ -34,7 +32,6 @@ export default function SeatMap() {
     [68, 69, 70, null, 72],
   ]
 
-  // Generate initial seat status with some seats occupied by male/female passengers
   const generateInitialSeatStatus = () => {
     const statusMap = {}
     initialSeatLayout.forEach((row) => {
@@ -54,17 +51,16 @@ export default function SeatMap() {
     return statusMap
   }
 
-  // State for seat statuses and selected seat
   const [seatStatus, setSeatStatus] = useState(generateInitialSeatStatus())
   const [selectedSeat, setSelectedSeat] = useState(null)
   const [passengerName, setPassengerName] = useState("")
   const [passengerGender, setPassengerGender] = useState("male")
   const [isConfirmed, setIsConfirmed] = useState(false)
 
-  // State to store passenger information for occupied seats
   const [occupiedSeatsInfo, setOccupiedSeatsInfo] = useState(() => {
     const info = {}
-    Object.entries(generateInitialSeatStatus()).forEach(([seatNumber, status]) => {
+    const initialStatus = generateInitialSeatStatus()
+    Object.entries(initialStatus).forEach(([seatNumber, status]) => {
       if (status === SEAT_STATUS.OCCUPIED_MALE) {
         info[seatNumber] = { name: `Passenger ${seatNumber}`, gender: "male" }
       } else if (status === SEAT_STATUS.OCCUPIED_FEMALE) {
@@ -74,22 +70,15 @@ export default function SeatMap() {
     return info
   })
 
-  // Labels for the sections
   const sectionLabels = {
     bottom: ["LOWER", "MIDDLE", "UPPER"],
     right: ["SIDE LOWER", "SIDE UPPER"],
   }
 
-  // Handle seat selection
   const handleSeatClick = (seatNumber) => {
     const currentStatus = seatStatus[seatNumber]
+    if (currentStatus === SEAT_STATUS.OCCUPIED_MALE || currentStatus === SEAT_STATUS.OCCUPIED_FEMALE) return
 
-    // Cannot select occupied seats
-    if (currentStatus === SEAT_STATUS.OCCUPIED_MALE || currentStatus === SEAT_STATUS.OCCUPIED_FEMALE) {
-      return
-    }
-
-    // If this seat is already selected, unselect it
     if (currentStatus === SEAT_STATUS.SELECTED) {
       setSeatStatus((prev) => {
         const updated = { ...prev }
@@ -100,7 +89,6 @@ export default function SeatMap() {
       return
     }
 
-    // If another seat was previously selected, make it available again
     if (selectedSeat) {
       setSeatStatus((prev) => {
         const updated = { ...prev }
@@ -109,7 +97,6 @@ export default function SeatMap() {
       })
     }
 
-    // Select the new seat
     setSeatStatus((prev) => {
       const updated = { ...prev }
       updated[seatNumber] = SEAT_STATUS.SELECTED
@@ -119,17 +106,15 @@ export default function SeatMap() {
     setIsConfirmed(false)
   }
 
-  // Handle confirmation
   const handleConfirm = () => {
     if (selectedSeat && passengerName.trim()) {
-      // Update seat status based on gender
       setSeatStatus((prev) => {
         const updated = { ...prev }
-        updated[selectedSeat] = passengerGender === "male" ? SEAT_STATUS.OCCUPIED_MALE : SEAT_STATUS.OCCUPIED_FEMALE
+        updated[selectedSeat] =
+          passengerGender === "male" ? SEAT_STATUS.OCCUPIED_MALE : SEAT_STATUS.OCCUPIED_FEMALE
         return updated
       })
 
-      // Store passenger info
       setOccupiedSeatsInfo((prev) => ({
         ...prev,
         [selectedSeat]: { name: passengerName, gender: passengerGender },
@@ -139,7 +124,6 @@ export default function SeatMap() {
     }
   }
 
-  // Get seat color and icon based on status
   const getSeatStyle = (status, seatNumber) => {
     switch (status) {
       case SEAT_STATUS.AVAILABLE:
@@ -170,7 +154,6 @@ export default function SeatMap() {
     }
   }
 
-  // Handle seat hover to show passenger info
   const [hoveredSeat, setHoveredSeat] = useState(null)
 
   return (
@@ -283,7 +266,6 @@ export default function SeatMap() {
           </div>
         </div>
 
-        {/* Passenger info tooltip */}
         {hoveredSeat && occupiedSeatsInfo[hoveredSeat] && (
           <div className="bg-gray-800 text-white p-2 rounded text-xs mb-3">
             <p>
@@ -295,10 +277,8 @@ export default function SeatMap() {
       </div>
 
       <div className="relative bg-gray-200 border border-gray-400 rounded-lg p-4 w-[280px]">
-        {/* Header line */}
         <div className="absolute top-0 left-4 right-4 h-1 bg-gray-400"></div>
 
-        {/* Seat map container */}
         <div className="pt-4 pb-8">
           {initialSeatLayout.map((row, rowIndex) => (
             <div key={`row-${rowIndex}`} className="flex justify-between mb-2">
@@ -319,7 +299,7 @@ export default function SeatMap() {
                       {getSeatStyle(seatStatus[seatNumber], seatNumber).icon}
                     </div>
                   ) : (
-                    <div className="w-10 h-8"></div> // Empty space
+                    <div className="w-10 h-8"></div>
                   )}
                 </div>
               ))}
@@ -327,7 +307,6 @@ export default function SeatMap() {
           ))}
         </div>
 
-        {/* Bottom labels */}
         <div className="absolute bottom-2 left-0 right-0 flex justify-between px-4">
           {sectionLabels.bottom.map((label, index) => (
             <div key={`bottom-label-${index}`} className="text-[8px] font-bold rotate-90 origin-center">
@@ -336,7 +315,6 @@ export default function SeatMap() {
           ))}
         </div>
 
-        {/* Right side labels */}
         <div className="absolute right-0 top-1/3 flex flex-col items-end pr-1">
           <div className="text-[8px] font-bold mb-20">{sectionLabels.right[0]}</div>
           <div className="text-[8px] font-bold">{sectionLabels.right[1]}</div>
