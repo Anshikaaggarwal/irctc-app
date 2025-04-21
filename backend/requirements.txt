@@ -1,0 +1,12 @@
+# API Dependencies
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+# Speech Recognition
+SpeechRecognition
+pyttsx3
+
+# Google AI
+google-generativeai
