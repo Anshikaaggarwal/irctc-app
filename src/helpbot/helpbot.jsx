@@ -195,7 +195,7 @@ const HelpBot = () => {
   const messagesEndRef = useRef(null);
 
   // API base URL - change this to your FastAPI URL
-  const API_URL = "http://localhost:8000";
+  const API_URL = "https://irctc-app-thp7.onrender.com";
 
   const toggleBot = () => setIsOpen(!isOpen);
 
