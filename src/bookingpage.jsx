@@ -4,6 +4,7 @@ import Footer from "./footer";
 import translations from "./translations"; // Import translations
 import "./App.css";
 import { Link } from "react-router-dom";
+import HelpBot from "./helpbot/helpbot";
 
 const BookingPage = () => {
   const [language, setLanguage] = useState("en"); // State to store the current language
@@ -89,6 +90,7 @@ const BookingPage = () => {
 
       {/* Footer */}
       <Footer language={language} />
+      <HelpBot/>
     </div>
   );
 };
